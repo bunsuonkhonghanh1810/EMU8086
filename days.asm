@@ -3,7 +3,7 @@
 .data
     s db '00-00-0000$'
     s1 db '000 $'   
-    days db 'montuewedthufrisatsun$'
+    days db 'sunmontuewedthufrisat$'
 .code
     minh_wang proc 
         mov ax, @data
@@ -16,13 +16,16 @@
         mov ah, 0
         mul bl
         mov bx, ax
-        mov cx, 3
+        mov di, 0
         mov si, 0
     printdays:
-        mov s1+si, days(bx)
+        mov al, days+bx  
+        mov s1+si, al
         inc si
         inc bx
-        loop printdays
+        inc di
+        cmp di, 3
+        jl printdays
         
         mov ah, 0
         mov al, dl
